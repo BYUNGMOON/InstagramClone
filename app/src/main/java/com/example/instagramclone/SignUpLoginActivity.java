@@ -1,5 +1,6 @@
 package com.example.instagramclone;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
@@ -18,6 +19,7 @@ public class SignUpLoginActivity extends AppCompatActivity {
 
     private EditText edtUsernameSignup, edtPasswordSignup, edtUsernameLogin, edtPasswordLogin;
     private Button btnSignup, btnLogin;
+    public ParseUser userObj;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,6 +51,10 @@ public class SignUpLoginActivity extends AppCompatActivity {
                                     FancyToast.LENGTH_LONG,
                                     FancyToast.SUCCESS,
                                     true).show();
+
+                            Intent intent = new Intent(SignUpLoginActivity.this, WelcomeActivity.class);
+                            startActivity(intent);
+
                         } else {
                             FancyToast.makeText(SignUpLoginActivity.this,
                                     appUser.get("username") + " isn't signed up successfully",
@@ -78,6 +84,9 @@ public class SignUpLoginActivity extends AppCompatActivity {
                                             FancyToast.SUCCESS,
                                             true).show();
 
+                                    Intent intent = new Intent(SignUpLoginActivity.this, WelcomeActivity.class);
+                                    startActivity(intent);
+
                                 } else {
                                     FancyToast.makeText(SignUpLoginActivity.this,
                                             e.getMessage() + "Login failed",
@@ -87,7 +96,6 @@ public class SignUpLoginActivity extends AppCompatActivity {
                                 }
                             }
                         });
-
             }
         });
     }
