@@ -63,6 +63,7 @@ public class SignUp extends AppCompatActivity {
                 }
             });
 
+
         } catch (Exception e) {
 
 // Test Update hahahahaha
