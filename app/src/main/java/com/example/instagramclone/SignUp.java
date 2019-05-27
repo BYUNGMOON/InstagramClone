@@ -65,7 +65,7 @@ public class SignUp extends AppCompatActivity {
 
         } catch (Exception e) {
 
-            
+// Test Update hahahahaha
             FancyToast.makeText(SignUp.this,
                     e.getMessage(),
                     FancyToast.LENGTH_LONG,
