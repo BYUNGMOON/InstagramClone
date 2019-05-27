@@ -3,18 +3,29 @@ package com.example.instagramclone;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.GetCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.shashank.sony.fancytoastlib.FancyToast;
 
+import java.util.List;
+
 public class SignUp extends AppCompatActivity {
 
-    EditText edtName, edtPunchSpeed, edtPunchPower, edtKickSpeed, edtKickPower;
+    private EditText edtName, edtPunchSpeed, edtPunchPower, edtKickSpeed, edtKickPower;
+    private TextView txtGetData;
+    private Button btnGetAllData;
+
+    private String allKickBoxer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +37,77 @@ public class SignUp extends AppCompatActivity {
         edtPunchPower = findViewById(R.id.edtPunchPower);
         edtKickSpeed = findViewById(R.id.edtKickSpeed);
         edtKickPower = findViewById(R.id.edtKickPower);
+        btnGetAllData = findViewById(R.id.btnGetAllData);
+
+        txtGetData = findViewById(R.id.txtGetData);
+        txtGetData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                ParseQuery<ParseObject> parseQuery = ParseQuery.getQuery("KickBoxer");
+                parseQuery.getInBackground("FpPjiHd2wS", new GetCallback<ParseObject>() {
+                    @Override
+                    public void done(ParseObject object, ParseException e) {
+
+                        if (object != null && e == null) {
+
+                            txtGetData.setText(object.get("Name") + "\n"
+                                    + "Punch Power : " + object.get("punch_power") + "\n"
+                                    + "punch_Speec : " + object.get("punch_speed") + "\n"
+                                    + "kick_Power : " + object.get("kick_power") + "\n"
+                                    + "kick_Speed : " + object.get("kick_speed"));
+                        }
+                        else {
+                            FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
+                        }
+                    }
+                });
+            }
+        });
+
+        btnGetAllData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                allKickBoxer = "";
+
+                ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Boxer");
+                queryAll.findInBackground(new FindCallback<ParseObject>() {
+                    @Override
+                    public void done(List<ParseObject> objects, ParseException e) {
+
+                        if (e == null) {
+
+                            if (objects.size() > 0) {
+
+                                for (ParseObject kickBoxer : objects) {
+
+                                    allKickBoxer = allKickBoxer + kickBoxer.get("punch_speed") + "\n";
+                                }
+
+                                FancyToast.makeText(SignUp.this,
+                                        allKickBoxer,
+                                        FancyToast.LENGTH_LONG,
+                                        FancyToast.SUCCESS,
+                                        true).show();
+                            }
+                            else {
+                                FancyToast.makeText(SignUp.this,
+                                        "Fail",
+                                        FancyToast.LENGTH_LONG,
+                                        FancyToast.SUCCESS,
+                                        true).show();
+                            }
+                        }
+
+                    }
+                });
+            }
+        });
+
+
+
+
     }
 
     //kickboxer punch speed, punch power, kick speed, kick power, name of kickboxer, callback.
