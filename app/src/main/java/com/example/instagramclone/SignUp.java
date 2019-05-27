@@ -57,7 +57,8 @@ public class SignUp extends AppCompatActivity {
                         edtKickSpeed.setText("");
                         edtKickPower.setText("");
                     } else {
-                        Toast.makeText(SignUp.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//                        Toast.makeText(SignUp.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        FancyToast.makeText(SignUp.this, e.getMessage(), FancyToast.LENGTH_LONG, FancyToast.ERROR, true).show();
                     }
                 }
             });
@@ -69,22 +70,6 @@ public class SignUp extends AppCompatActivity {
                     FancyToast.LENGTH_LONG,
                     FancyToast.ERROR,
                     true).show();
-
         }
-
-//        ParseObject kickBoxer = new ParseObject("KickBoxer");
-//        kickBoxer.put("Name", "First Kickboxer");
-//        kickBoxer.put("punch_speed", 500);
-//        kickBoxer.put("punch_power", 70000);
-//        kickBoxer.put("kick_speed", 600);
-//        kickBoxer.put("kick_power", 1000);
-//        kickBoxer.saveInBackground(new SaveCallback() {
-//            @Override
-//            public void done(ParseException e) {
-//                if (e == null) {
-//                    Toast.makeText(SignUp.this, kickBoxer.get("Name") + " is saved successfully", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
     }
 }
