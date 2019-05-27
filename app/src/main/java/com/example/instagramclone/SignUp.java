@@ -24,6 +24,7 @@ public class SignUp extends AppCompatActivity {
     private EditText edtName, edtPunchSpeed, edtPunchPower, edtKickSpeed, edtKickPower;
     private TextView txtGetData;
     private Button btnGetAllData;
+    private Button btnTransition;
 
     private String allKickBoxer;
 
@@ -38,6 +39,7 @@ public class SignUp extends AppCompatActivity {
         edtKickSpeed = findViewById(R.id.edtKickSpeed);
         edtKickPower = findViewById(R.id.edtKickPower);
         btnGetAllData = findViewById(R.id.btnGetAllData);
+        btnTransition = findViewById(R.id.btnNextActivity);
 
         txtGetData = findViewById(R.id.txtGetData);
         txtGetData.setOnClickListener(new View.OnClickListener() {
@@ -71,7 +73,11 @@ public class SignUp extends AppCompatActivity {
 
                 allKickBoxer = "";
 
-                ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("Boxer");
+                ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+
+                queryAll.whereGreaterThan("punch_power", 1000);
+                queryAll.whereGreaterThanOrEqualTo("punch_speed", 300);
+
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -82,7 +88,7 @@ public class SignUp extends AppCompatActivity {
 
                                 for (ParseObject kickBoxer : objects) {
 
-                                    allKickBoxer = allKickBoxer + kickBoxer.get("punch_speed") + "\n";
+                                    allKickBoxer = allKickBoxer + kickBoxer.get("punch_power") + "\n";
                                 }
 
                                 FancyToast.makeText(SignUp.this,
@@ -102,6 +108,13 @@ public class SignUp extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+
+        btnTransition.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
 

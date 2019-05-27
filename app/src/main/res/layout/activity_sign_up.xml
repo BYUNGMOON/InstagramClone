@@ -134,4 +134,12 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtGetData" />
+
+    <Button
+        android:id="@+id/btnNextActivity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SWITCH TO ANOTHER ACTIVITY"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="510dp" />
 </android.support.constraint.ConstraintLayout>
